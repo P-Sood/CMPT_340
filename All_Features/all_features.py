@@ -28,20 +28,19 @@ import wave
 import random as rand
 from librosa.effects import pitch_shift, time_stretch
 
-# drive.mount('/content/gdrive', force_remount=True)
-# %cd gdrive/MyDrive/'CMPT 340 Project'/audio_and_txt_files
-
-
 
 path_to_audio_files = []
-for filename in glob.glob(os.path.join('', '*.wav')):
+
+folder_path = "/audio_and_txt_files"
+root = os.getcwd() + folder_path
+
+for filename in glob.glob(os.path.join('audio_and_txt_files', '*.wav')):
     path_to_audio_files.append(filename)
 audio_files_data = pd.DataFrame(path_to_audio_files, columns = ['audio_file'])
+
 # Get all of the audio_files in one dataframe
 
-audio_files_data.sample(10)
-
-
+audio_files_data
 
 diagnosis_df = pd.read_csv('patient_diagnosis.csv', names=['Patient number', 'Diagnosis'])
 diagnosis_df['Binary_diagnosis'] = diagnosis_df['Diagnosis'].apply(lambda x: 'Healthy' if x =='Healthy'  else 'Unhealthy')
@@ -50,8 +49,6 @@ df_demographic_info = pd.read_csv('demographic_info.txt', names = ['Patient numb
 df =  df_demographic_info.join(diagnosis_df.set_index('Patient number'), on = 'Patient number', how = 'left')
 
 df
-
-root = os.getcwd()
 
 filenames = [s.split('.')[0] for s in os.listdir(path = root) if '.txt' in s]
 
@@ -115,7 +112,6 @@ recording_info["Patient number"] = pd.to_numeric(recording_info["Patient number"
 df = pd.merge(df,recording_info, on = "Patient number")
 
 df
-
 """Now we have most of the statistical data about the patients all ready in the dataframe"""
 
 
@@ -137,18 +133,30 @@ def audio_features(filename):
     return [mfccs,chroma,mel,contrast,tonnetz,zero_crossing,centroids,energy]
 
 tqdm.pandas()
+
+audio_files_data.to_pickle("extracted_features.pkl")
+
+
 audio_files_data['to_drop'] = audio_files_data['audio_file'].progress_apply(lambda x: audio_features(x))
 
-audio_files_data
+audio_files_data.to_pickle("extracted_features1.pkl")
+
+audio_files_data = pd.read_pickle("extracted_features1.pkl")
 
 audio_files_data[["mfccs","chroma","mel","contrast","tonnetz","zero_crossing","centroids","energy"]] = pd.DataFrame(audio_files_data['to_drop'].tolist(), index=audio_files_data.index)
 audio_files_data.drop('to_drop',inplace=True, axis=1)
 
 audio_files_data
 
-df = pd.merge(df,audio_files_data, on = "audio_file")
+
+df['audio_file'] = df['audio_file'].astype(str)
+audio_files_data['audio_file'] = audio_files_data['audio_file'].astype(str)
+
+df = pd.concat([df,audio_files_data],axis=1)
+
 
 df
+
 
 df.drop('audio_file',inplace=True, axis=1)
 
@@ -213,14 +221,15 @@ for file_name in audio_files_data['audio_file']:
 for file_name in to_drop:
       audio_files_data = audio_files_data[audio_files_data.audio_file != file_name]
 
-audio_files_data.size
 
 unique_vals = []
 
-for i in audio_files_data['audio_file'].array:
-  unique_vals.append(i[0:3])
 
-set(unique_vals)
+for i in audio_files_data['audio_file'].array:
+  unique_vals.append(i[20:23])
+
+unique_vals = list(unique_vals)
+
 
 """The code above was made by Anuj to remove all audio data that had a **sampling frequency** that was different then 44100
 
@@ -232,7 +241,10 @@ set(unique_vals)
 
 rows_to_delete = [int(row) for row in unique_vals]
 
-y_2 = y_2.drop(rows_to_delete, axis=0)
+# print(rows_to_delete)
+
+
+y_2 = y_2.drop(rows_to_delete, axis = 0)
 
 y_2.info()
 
@@ -255,7 +267,7 @@ pd.set_option("display.max_columns",None)
 
 """Now lets look at the data that is still NaN, and see if we can find a way to fill those in"""
 
-display(y_2.loc[vals])
+# display(y_2.loc[vals])
 
 remove = [908,             
 909,            
@@ -293,7 +305,7 @@ changeBMI = [41,
 
 """On these rows I am going to find the average BMI of a child of a particular age of a particular sex"""
 
-display(y_2.loc[changeBMI])
+# display(y_2.loc[changeBMI])
 
 """(Age,Sex,Average_BMI)
 
@@ -468,13 +480,19 @@ df.to_pickle("All_Features.pkl")
 
 y_2 = pd.read_pickle("Cleaned_Data.pkl")
 
-y_2.info()
+print(y_2.info())
+
+y_2['Patient number'] = y_2["Patient number"].astype(str)
 
 """Given that we have already removed data rows, we need only certain wav files, so lets get back the wav files for all the data that we are going to be using"""
 
-y_2 = y_2.assign(wav_file=lambda x:  x['Patient number'] + "_" + x['Recording index'] + "_" + x['Chest location'] + "_" + x['Acquisition mode'] + "_" + x['Recording equipment'] + ".wav")
+folder_path = folder_path[1:] + folder_path[0]
+
+y_2 = y_2.assign(wav_file=lambda x: folder_path + x['Patient number'] + "_" + x['Recording index'] + "_" + x['Chest location'] + "_" + x['Acquisition mode'] + "_" + x['Recording equipment'] + ".wav")
 
 y_2
+
+
 
 
 """Now given the audio files we create a function similar to the one earlier, except we use a random integer to apply some sort of shift to the audio. For future analysis"""
@@ -509,16 +527,18 @@ def audio_features_change_audio(filename):
 
     return [zero_crossing,centroids,energy,concat,i]
 
-dataframe_2_append = dataframe_2_append[['wav_file']]
+dataframe_2_append = y_2[['wav_file']]
 
 dataframe_2_append
 
 tqdm.pandas()
 z_2 = dataframe_2_append.progress_applymap(audio_features_change_audio)
 
-"""Now we just do what we have done before and just go from lists to single elements and then from the concat list down to its single elements. So we are just flattening the "array""""
+"""Now we just do what we have done before and just go from lists to single elements and then from the concat list down to its single elements. So we are just flattening the "array"""
 
 z_2
+
+z_2.to_pickle("augmented_data_new.pkl")
 
 z_2[["zero_crossing","centroids","energy","concat","rand int i"]] = pd.DataFrame(z_2['wav_file'].tolist(), index=z_2.index)
 
@@ -599,6 +619,27 @@ df['Sex'] = (df['Sex'] == "M").astype(int)
 df
 
 """Here, all of our data except for Diagnosis, Binary diagnosis, and Recording index have been One Hot Encoded."""
+
+print("Number of Healthy Patients: ",(df['Binary_diagnosis'] == "Healthy").sum())
+print("Number of Unhealthy Patients: ",(df['Binary_diagnosis'] == "Unhealthy").sum())
+
+print("Number of Patients with Asthma are: ",(df['Diagnosis'] == "Asthma").sum())
+print("Number of Patients with Bronchiectasis are: ",(df['Diagnosis'] == "Bronchiectasis").sum())
+print("Number of Patients with Bronchiolitis are: ",(df['Diagnosis'] == "Bronchiolitis").sum())
+print("Number of Patients with COPD are: ",(df['Diagnosis'] == "COPD").sum())
+print("Number of Patients that are Healthy, are: ",(df['Diagnosis'] == "Healthy").sum())
+print("Number of Patients with LRTI are: ",(df['Diagnosis'] == "LRTI").sum())
+print("Number of Patients with Pneumonia are: ",(df['Diagnosis'] == "Pneumonia").sum())
+print("Number of Patients with URTI are: ",(df['Diagnosis'] == "URTI").sum())
+
+
+"""We realize that there are only 2 patients with Asthma and LRTI respectively, and thus it makes more sense to remove them"""
+
+df = df[ df["Diagnosis"] != "Asthma"]
+df = df[ df["Diagnosis"] != "LRTI"  ]
+df.reset_index(inplace=True)
+
+print(df.info())
 
 df.to_pickle("Final_Data.pkl")
 
