@@ -41,7 +41,7 @@ for filename in glob.glob(os.path.join('audio_and_txt_files', '*.wav')):
     path_to_audio_files.append(filename)
 audio_files_data = pd.DataFrame(path_to_audio_files, columns = ['audio_file'])
 
-# Get all of the audio_files in one dataframe
+# # # Get all of the audio_files in one dataframe
 
 audio_files_data
 
@@ -542,6 +542,8 @@ z_2 = dataframe_2_append.progress_applymap(audio_features_change_audio)
 z_2
 
 z_2.to_pickle("augmented_data_new.pkl")
+
+z_2 = pd.read_pickle("augmented_data_new.pkl")
 
 z_2[["zero_crossing","centroids","energy","concat","rand int i"]] = pd.DataFrame(z_2['wav_file'].tolist(), index=z_2.index)
 
