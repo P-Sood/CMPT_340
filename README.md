@@ -11,8 +11,7 @@ We will be using thisdataset by applying ML classifiers to features extracted fr
 * Python - version 3.0 or higher
 * GoogleColab (**Optional**)
 
-## Required APIs and their installations 
-### Package managers and installation
+## Required installations 
 pip install -r requirements.txt
 
 ## Order of Execution
@@ -20,7 +19,7 @@ pip install -r requirements.txt
 	* Extracts the Requred features from the kaggle dataset
 
 * Run "Models.py"
-	* this file performs various supervised and unsupervised machine learning algorithms on the features.
+	* This file performs various supervised and unsupervised machine learning algorithms on the features.
 
 ## Data
 * All files used and produced are in 'All_Features' folder 
@@ -33,8 +32,6 @@ Link:  https://www.kaggle.com/vbookshelf/respiratory-sound-database/download
 	* !kaggle datasets download -d vbookshelf/respiratory-sound-database
 ### Unzipping
 Now all the other files have already been put in the dataset, so using "unzip_files.py" function in All_features/audio_files on the download should give you everything. And all you must do on lines 34,36 of all_features.py located in All_Features is indicate where all the sound files are at, in your local machine. Then make sure you run your code inside /All_Features.
-### Processed_data
-* This file contains cleaned and processed data used by Models.py
 ### Plots
 * This file contains all the plots and visualizations
 
