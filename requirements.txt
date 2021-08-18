@@ -28,6 +28,7 @@ scipy==1.7.1
 seaborn==0.11.2
 six==1.16.0
 SoundFile==0.10.3.post1
+split-folders==0.4.3
 threadpoolctl==2.2.0
 tqdm==4.62.1
 urllib3==1.26.6
