@@ -59,9 +59,8 @@ Since all of us worked on GoogleColab for this Project, A comment with the name 
 * Nathaniel Chan (**301314801**)
 * Vaibhav Saini (**301386847**)
 
-## Link
-https://colab.research.google.com/drive/1hN6gvnhnJSdLHkk7_v_IkS2srr2IGkR-?usp=sharing
-This is where we completed the project. 
+## G-Drive Link - This is where we completed the project. 
+`https://drive.google.com/drive/folders/1e1OTACsf9h9Mi5uoqIsDyb3h904F6VDk?usp=sharing`
 
 ## Discord Discussion
 All of the discussions are on discord and will be provided in the supplementary materials.
