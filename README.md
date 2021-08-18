@@ -39,7 +39,7 @@ Now all the other files have already been put in the dataset, so using "unzip_fi
 * This file contains all the plots and visualizations
 
 ## Aside
-Since all of us worked on GoogleColab for this Project, A comment with the name of the developer is assigned to their respective contribution in 'all_features.py' and 'Models.py'.
+Since all of us worked on GoogleColab for this Project, A comment with the name of the developer is assigned to their respective contribution in 'all_features.py' and 'Models.py'. Since we already set up a discord channel (which was our main source of communication), we didn't use Slack. Please refer to the 'Contributions' part of the report for individual contributions.
 
 ## Developers
 * Pranav Sood (**301335687**)
