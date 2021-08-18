@@ -12,13 +12,13 @@ We will be using this dataset by applying ML classifiers to features extracted f
 * GoogleColab (**Optional**)
 
 ## Required installations 
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 ## Order of Execution
-* Run "all_features.py" from 'All_Features/all_features.py' 
+* Run 'All_Features/all_features.py' 
 	* Extracts the Requred features from the kaggle dataset
 
-* Run "Models.py"
+* Run 'All_Features/Models.py'
 	* This file performs various supervised and unsupervised machine learning algorithms on the features.
 
 ## Data
