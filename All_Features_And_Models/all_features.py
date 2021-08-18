@@ -34,7 +34,9 @@ import splitfolders
 
 path_to_audio_files = []
 
-folder_path = "/audio_and_txt_files"
+folder_path = "/audio_and_txt_files_run_instantly" # THIS IS SO YOU CAN RUN INSTANTLY
+
+# folder_path = "/audio_and_txt_files"  UNCOMMENT THIS LINE AS PROF
 root = os.getcwd() + folder_path
 
 for filename in glob.glob(os.path.join('audio_and_txt_files', '*.wav')):
