@@ -3,9 +3,9 @@
 # Topic: Diagnosing lung diseases using respiratory sounds
 
 ## Project Summary
-Using machine learning (ML) to automatically classify respiratory sounds (RS)is not a new application. However, the bottleneck to developments in this fieldresults from the lack of publicly-available databases containing RS, both healthyand unhealthy, and expert classification of these sounds. To address this issue,the  International  Conference  on  Biomedical  and  Health  Informatics  (ICBHI)has publicly published a large dataset in 2017 containing 920 respiratory soundrecorded from 126 subjects as part of a Kaggle challenge. 
+Using machine learning (ML) to automatically classify respiratory sounds (RS)is not a new application. However, the bottleneck to developments in this field results from the lack of publicly-available databases containing RS, both healthyand unhealthy, and expert classification of these sounds. To address this issue,the  International  Conference  on  Biomedical  and  Health  Informatics  (ICBHI) has publicly published a large dataset in 2017 containing 920 respiratory soundrecorded from 126 subjects as part of a Kaggle challenge. 
 
-We will be using thisdataset by applying ML classifiers to features extracted from this dataset. The classification of RS using ML can lead to a quick and improved diagno-sis of respiratory conditions, sometimes providing a better and more consistentclassification than a manual diagnosis by experts. It can also lead to discoveriesof new and improved methods to diagnose conditions.
+We will be using this dataset by applying ML classifiers to features extracted from this dataset. The classification of RS using ML can lead to a quick and improved diagnosis of respiratory conditions, sometimes providing a better and more consistentclassification than a manual diagnosis by experts. It can also lead to discoveriesof new and improved methods to diagnose conditions.
 
 ## Enivironment used
 * Python - version 3.0 or higher
