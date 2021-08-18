@@ -41,7 +41,7 @@ for filename in glob.glob(os.path.join('audio_and_txt_files', '*.wav')):
     path_to_audio_files.append(filename)
 audio_files_data = pd.DataFrame(path_to_audio_files, columns = ['audio_file'])
 
-#Get all of the audio_files in one dataframe
+# Get all of the audio_files in one dataframe
 
 audio_files_data
 
