@@ -27,7 +27,7 @@ cd All_Features_And_Models
 
 Add the downloaded archive.zip into All_Features_And_Models. Using "unzip_files.py" function  on the download will put all the folders in the correct place
 
-And all you must do on lines 34,36 of all_features.py located in All_Features is indicate where all the sound files are at, in your local machine. Then make sure you run your code inside /All_Features_And_Models.
+And all you must do on lines 34,36 of all_features.py located in All_Features is indicate where all the sound files are at, in your local machine. It should however just be named "audio_and_txt_files .Then make sure you run your code inside /All_Features_And_Models.
 ### Plots
 * This file contains all the plots and visualizations
 
