@@ -4,3 +4,5 @@ Link:  https://www.kaggle.com/vbookshelf/respiratory-sound-database/download
 This should automatically download it
 
 Now all the other files have already been put in the dataset, so using my "unzip_files.py" function in All_features/audio_files on the download should give you everything. And all you must do on lines 34,36 of all_features.py located in All_Features is indicate where all the sound files are at, in your local machine. Then make sure you run your code inside /All_Features.
+
+Note the data that is actually of use is Final_Data.pkl
