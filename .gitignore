@@ -4,8 +4,4 @@ All_Features_And_Models/audio_and_txt_files/
 All_Features_And_Models/Data/
 All_Features_And_Models/image_data/
 *.pkl
-*.png
 .DS_Store
-
-
-
